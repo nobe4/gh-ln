@@ -7,7 +7,7 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/nobe4/gh-ln/internal/github"
+	"github.com/nobe4/gh-ln/pkg/github"
 )
 
 //go:embed fixtures/*

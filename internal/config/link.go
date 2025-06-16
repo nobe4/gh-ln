@@ -7,9 +7,9 @@ import (
 	"strings"
 
 	"github.com/nobe4/gh-ln/internal/format"
-	"github.com/nobe4/gh-ln/internal/github"
-	"github.com/nobe4/gh-ln/internal/log"
 	"github.com/nobe4/gh-ln/internal/template"
+	"github.com/nobe4/gh-ln/pkg/github"
+	"github.com/nobe4/gh-ln/pkg/log"
 )
 
 const (

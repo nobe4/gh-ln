@@ -6,14 +6,14 @@ import (
 	"net/http"
 	"os"
 
-	"github.com/nobe4/gh-ln/internal/client"
-	"github.com/nobe4/gh-ln/internal/client/noop"
-	"github.com/nobe4/gh-ln/internal/environment"
-	"github.com/nobe4/gh-ln/internal/github"
-	"github.com/nobe4/gh-ln/internal/ln"
-	"github.com/nobe4/gh-ln/internal/log"
-	glog "github.com/nobe4/gh-ln/internal/log/github"
-	"github.com/nobe4/gh-ln/internal/log/plain"
+	"github.com/nobe4/gh-ln/pkg/client"
+	"github.com/nobe4/gh-ln/pkg/client/noop"
+	"github.com/nobe4/gh-ln/pkg/environment"
+	"github.com/nobe4/gh-ln/pkg/github"
+	"github.com/nobe4/gh-ln/pkg/ln"
+	"github.com/nobe4/gh-ln/pkg/log"
+	glog "github.com/nobe4/gh-ln/pkg/log/github"
+	"github.com/nobe4/gh-ln/pkg/log/plain"
 )
 
 func main() {

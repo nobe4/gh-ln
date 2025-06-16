@@ -8,7 +8,7 @@ import (
 	"regexp"
 	"strings"
 
-	"github.com/nobe4/gh-ln/internal/log"
+	"github.com/nobe4/gh-ln/pkg/log"
 )
 
 type Client struct {

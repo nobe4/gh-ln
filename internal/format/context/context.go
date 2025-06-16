@@ -6,7 +6,7 @@ import (
 	"strings"
 
 	"github.com/nobe4/gh-ln/internal/config"
-	"github.com/nobe4/gh-ln/internal/environment"
+	"github.com/nobe4/gh-ln/pkg/environment"
 )
 
 type Formatter struct {

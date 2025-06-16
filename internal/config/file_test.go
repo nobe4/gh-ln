@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"testing"
 
-	"github.com/nobe4/gh-ln/internal/github"
+	"github.com/nobe4/gh-ln/pkg/github"
 )
 
 //nolint:maintidx // This is just a big list of tests.

@@ -8,7 +8,7 @@ import (
 	"fmt"
 	"net/http"
 
-	"github.com/nobe4/gh-ln/internal/log"
+	"github.com/nobe4/gh-ln/pkg/log"
 )
 
 var (
