@@ -14,8 +14,8 @@ import (
 	"io"
 	"net/http"
 
-	"github.com/nobe4/gh-ln/internal/client"
-	"github.com/nobe4/gh-ln/internal/log"
+	"github.com/nobe4/gh-ln/pkg/client"
+	"github.com/nobe4/gh-ln/pkg/log"
 )
 
 type Getter interface {

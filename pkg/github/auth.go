@@ -8,7 +8,7 @@ import (
 	"time"
 
 	"github.com/nobe4/gh-ln/internal/jwt"
-	"github.com/nobe4/gh-ln/internal/log"
+	"github.com/nobe4/gh-ln/pkg/log"
 )
 
 type AppToken struct {

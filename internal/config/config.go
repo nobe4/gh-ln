@@ -15,8 +15,8 @@ import (
 
 	"github.com/goccy/go-yaml"
 
-	"github.com/nobe4/gh-ln/internal/github"
-	"github.com/nobe4/gh-ln/internal/log"
+	"github.com/nobe4/gh-ln/pkg/github"
+	"github.com/nobe4/gh-ln/pkg/log"
 )
 
 var (

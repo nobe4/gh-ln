@@ -3,7 +3,7 @@ package config
 import (
 	"testing"
 
-	"github.com/nobe4/gh-ln/internal/github"
+	"github.com/nobe4/gh-ln/pkg/github"
 )
 
 func TestParseDefault(t *testing.T) {

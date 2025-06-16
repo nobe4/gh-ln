@@ -3,7 +3,7 @@ package mock
 import (
 	"context"
 
-	"github.com/nobe4/gh-ln/internal/github"
+	"github.com/nobe4/gh-ln/pkg/github"
 )
 
 type Getter struct {

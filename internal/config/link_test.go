@@ -5,8 +5,8 @@ import (
 	"testing"
 
 	fmock "github.com/nobe4/gh-ln/internal/format/mock"
-	"github.com/nobe4/gh-ln/internal/github"
-	gmock "github.com/nobe4/gh-ln/internal/github/mock"
+	"github.com/nobe4/gh-ln/pkg/github"
+	gmock "github.com/nobe4/gh-ln/pkg/github/mock"
 )
 
 const (

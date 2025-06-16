@@ -6,7 +6,7 @@ import (
 	"fmt"
 	"regexp"
 
-	"github.com/nobe4/gh-ln/internal/github"
+	"github.com/nobe4/gh-ln/pkg/github"
 )
 
 var ErrInvalidFileType = errors.New("invalid file type")

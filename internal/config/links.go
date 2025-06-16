@@ -5,8 +5,8 @@ import (
 	"fmt"
 
 	"github.com/nobe4/gh-ln/internal/format"
-	"github.com/nobe4/gh-ln/internal/github"
-	"github.com/nobe4/gh-ln/internal/log"
+	"github.com/nobe4/gh-ln/pkg/github"
+	"github.com/nobe4/gh-ln/pkg/log"
 )
 
 type Links []*Link

@@ -13,10 +13,10 @@ import (
 	"strings"
 
 	"github.com/nobe4/gh-ln/internal/config"
-	"github.com/nobe4/gh-ln/internal/environment"
 	contextfmt "github.com/nobe4/gh-ln/internal/format/context"
-	"github.com/nobe4/gh-ln/internal/github"
-	"github.com/nobe4/gh-ln/internal/log"
+	"github.com/nobe4/gh-ln/pkg/environment"
+	"github.com/nobe4/gh-ln/pkg/github"
+	"github.com/nobe4/gh-ln/pkg/log"
 )
 
 func Run(ctx context.Context, e environment.Environment, g *github.GitHub) error {
