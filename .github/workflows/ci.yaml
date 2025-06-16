@@ -39,7 +39,7 @@ jobs:
           go-version-file: 'go.mod'
       - run: ./script/test
 
-  golangci-lint:
+  lint:
     runs-on: ubuntu-latest
 
     steps:
