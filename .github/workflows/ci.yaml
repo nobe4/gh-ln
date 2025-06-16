@@ -21,7 +21,11 @@ jobs:
       - uses: actions/setup-go@v5
         with:
           go-version-file: 'go.mod'
-      - run: ./script/build
+      - uses: goreleaser/goreleaser-action@v6
+        with:
+          args: --snapshot --clean
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
   test:
     runs-on: ubuntu-latest
@@ -46,12 +50,3 @@ jobs:
         with:
           go-version-file: 'go.mod'
       - uses: golangci/golangci-lint-action@v8
-
-  check-dist:
-    runs-on: ubuntu-latest
-
-    steps:
-      - uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-      - run: ./script/check-bin-existence
