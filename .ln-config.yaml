@@ -4,18 +4,13 @@ defaults:
 
 links:
   - from: script/tag-release
-
-  - from: go/script/lint
-    to: script/lint
-
-  - from: go/script/test
-    to: script/test
-
-  - from: go/.golangci.yaml
-    to: .golangci.yaml
-
-  # Do this bootstrap later
-  # - from:
-  #     path: .github/workflows/link.yaml
-  #   to:
-  #     path: .github/workflows/link.yaml
+  - from: .github/workflows/ln.yaml
+  - from: .github/dependabot.yaml
+  - from:
+      - go/.ln-config.yaml
+      - go/script/lint
+      - go/script/test
+      - go/script/build
+      - go/.golangci.yaml
+      - go/.goreleaser.yaml
+    to: "{{ pathTrimN .Link.From.Path 1 }}"
