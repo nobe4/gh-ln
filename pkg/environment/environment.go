@@ -3,8 +3,6 @@ Package environment implements helpers to get inputs and environment from the
 GitHub action's environment variables.
 Called `environment` to avoid conflict with the `context` package.
 
-TODO: move parse() in only action-ln/internal, gh-ln will use internal/flags
-
 https://docs.github.com/en/actions/writing-workflows/choosing-what-your-workflow-does/accessing-contextual-information-about-workflow-runs
 */
 package environment
