@@ -6,9 +6,9 @@ import (
 	"net/http"
 	"os"
 
+	"github.com/nobe4/gh-ln/internal/flags"
 	"github.com/nobe4/gh-ln/pkg/client"
 	"github.com/nobe4/gh-ln/pkg/client/noop"
-	"github.com/nobe4/gh-ln/pkg/environment"
 	"github.com/nobe4/gh-ln/pkg/github"
 	"github.com/nobe4/gh-ln/pkg/ln"
 	"github.com/nobe4/gh-ln/pkg/log"
@@ -19,11 +19,13 @@ import (
 func main() {
 	ctx := context.TODO()
 
-	e, err := environment.Parse()
+	e, err := flags.Parse()
 	if err != nil {
 		log.Error("Environment parsing failed", "reason", err)
 		os.Exit(1)
 	}
+
+	log.Info("Environment", "parsed", e)
 
 	setLogger(e.Debug, e.OnAction)
 

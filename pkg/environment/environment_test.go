@@ -60,29 +60,30 @@ func TestParseToken(t *testing.T) {
 }
 
 func TestParseRepo(t *testing.T) {
-	t.Run("gets nothing", func(t *testing.T) {
-		// Need to force an empty value to not conflict with GitHub Action's Env
-		t.Setenv("GITHUB_REPOSITORY", "")
+	t.Parallel()
 
-		_, err := parseRepo()
+	t.Run("gets nothing", func(t *testing.T) {
+		t.Parallel()
+
+		_, err := ParseRepo("")
 		if !errors.Is(err, ErrNoRepo) {
 			t.Fatalf("want %v but got error: %v", ErrNoRepo, err)
 		}
 	})
 
 	t.Run("gets nothing", func(t *testing.T) {
-		t.Setenv("GITHUB_REPOSITORY", "owner+repo+is+invalid")
+		t.Parallel()
 
-		_, err := parseRepo()
+		_, err := ParseRepo("owner+repo+is+invalid")
 		if !errors.Is(err, ErrInvalidRepo) {
 			t.Fatalf("want %v but got error: %v", ErrInvalidRepo, err)
 		}
 	})
 
 	t.Run("gets the parsed Repo", func(t *testing.T) {
-		t.Setenv("GITHUB_REPOSITORY", "owner/repo")
+		t.Parallel()
 
-		got, err := parseRepo()
+		got, err := ParseRepo("owner/repo")
 		if err != nil {
 			t.Fatalf("expected no error, got %v", err)
 		}
@@ -99,8 +100,8 @@ func TestParseEndpoint(t *testing.T) {
 		t.Setenv("GITHUB_REPOSITORY", "")
 
 		got := parseEndpoint()
-		if defaultEndpoint != got {
-			t.Fatalf("want %v but got %v", defaultEndpoint, got)
+		if DefaultEndpoint != got {
+			t.Fatalf("want %v but got %v", DefaultEndpoint, got)
 		}
 	})
 
@@ -121,8 +122,8 @@ func TestParseServer(t *testing.T) {
 		t.Setenv("GITHUB_SERVER_URL", "")
 
 		got := parseServer()
-		if defaultServer != got {
-			t.Fatalf("want %v but got %v", defaultServer, got)
+		if DefaultServer != got {
+			t.Fatalf("want %v but got %v", DefaultServer, got)
 		}
 	})
 
@@ -143,8 +144,8 @@ func TestParseRunID(t *testing.T) {
 		t.Setenv("GITHUB_RUN_ID", "")
 
 		got := parseRunID()
-		if defaultRunID != got {
-			t.Fatalf("want %v but got %v", defaultRunID, got)
+		if DefaultRunID != got {
+			t.Fatalf("want %v but got %v", DefaultRunID, got)
 		}
 	})
 
@@ -165,8 +166,8 @@ func TestParseConfig(t *testing.T) {
 		t.Setenv("INPUT_CONFIG", "")
 
 		got := parseConfig()
-		if defaultConfig != got {
-			t.Fatalf("want %v but got %v", defaultConfig, got)
+		if DefaultConfig != got {
+			t.Fatalf("want %v but got %v", DefaultConfig, got)
 		}
 	})
 
@@ -252,8 +253,8 @@ func TestTruthy(t *testing.T) {
 		t.Run("", func(t *testing.T) {
 			t.Parallel()
 
-			if truthy(test.s) != test.want {
-				t.Fatalf("want %v but got %v", test.want, truthy(test.s))
+			if Truthy(test.s) != test.want {
+				t.Fatalf("want %v but got %v", test.want, Truthy(test.s))
 			}
 		})
 	}
@@ -262,11 +263,11 @@ func TestTruthy(t *testing.T) {
 func TestMissingOrRedacted(t *testing.T) {
 	t.Parallel()
 
-	if missingOrRedacted("token") != redacted {
+	if missingOrRedacted("token") != Redacted {
 		t.Fatalf("want redacted but got something else")
 	}
 
-	if missingOrRedacted("") != missing {
+	if missingOrRedacted("") != Missing {
 		t.Fatalf("want missingd but got something else")
 	}
 }
