@@ -52,15 +52,6 @@ type Environment struct {
 	Debug       bool        `json:"debug"` // RUNNER_DEBUG
 }
 
-func New() Environment {
-	return Environment{
-		// only specifying the fields with set default values.
-		Endpoint: DefaultEndpoint,
-		Server:   DefaultServer,
-		Config:   DefaultConfig,
-	}
-}
-
 //nolint:revive // No, I don't want to leak secrets.
 func (e Environment) String() string {
 	e.Token = missingOrRedacted(e.Token)
