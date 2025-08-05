@@ -3,9 +3,9 @@
 
 set -e
 
-GITHUB_TOKEN=$(gh auth token) \
-	GITHUB_REPOSITORY=nobe4/gh-ln \
-	RUNNER_DEBUG=1 \
-	INPUT_NOOP=1 \
-	INPUT_LOCAL_CONFIG=".ln-config.yaml" \
-	go run cmd/gh-ln/main.go
+go run cmd/gh-ln/main.go \
+	-token "$(gh auth token)" \
+	-repo "nobe4/gh-ln" \
+	-local-config ".ln-config.yaml" \
+	-debug \
+	-noop

@@ -75,7 +75,8 @@ func (l *Link) NeedUpdate(ctx context.Context, g github.Getter, head github.Bran
 
 	log.Debug("Checking head content", "from", l.From, "to@head", headTo)
 
-	if err := g.GetFile(ctx, headTo); err != nil {
+	err := g.GetFile(ctx, headTo)
+	if err != nil {
 		if errors.Is(err, github.ErrMissingFile) {
 			log.Warn("File is missing", "to@head", headTo)
 
@@ -141,7 +142,8 @@ func (c *Config) ParseLinkString(s string) (Link, error) {
 }
 
 func (l *Link) populate(ctx context.Context, g github.Getter) error {
-	if err := l.populateFrom(ctx, g); err != nil {
+	err := l.populateFrom(ctx, g)
+	if err != nil {
 		return err
 	}
 
@@ -153,14 +155,16 @@ func (l *Link) populateFrom(ctx context.Context, g github.Getter) error {
 	// content on the default branch. However, there's no way to get it from
 	// `GetFile`, so getting it in advance is nicer for displaying it later.
 	if l.From.Ref == "" {
-		if err := g.GetRepo(ctx, &l.From.Repo); err != nil {
+		err := g.GetRepo(ctx, &l.From.Repo)
+		if err != nil {
 			return fmt.Errorf("%w %#v: %w", errGettingRepo, l.From, err)
 		}
 
 		l.From.Ref = l.From.Repo.DefaultBranch
 	}
 
-	if err := g.GetFile(ctx, &l.From); err != nil {
+	err := g.GetFile(ctx, &l.From)
+	if err != nil {
 		return fmt.Errorf("%w %#v: %w", errMissingFrom, l.From, err)
 	}
 
@@ -249,7 +253,8 @@ func (l *Link) applyTemplate(c *Config) error {
 	}
 
 	for _, f := range fields {
-		if err := template.Update(f.value, data); err != nil {
+		err := template.Update(f.value, data)
+		if err != nil {
 			return fmt.Errorf("%w to %q: %w", errFailTemplate, f.name, err)
 		}
 	}

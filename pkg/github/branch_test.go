@@ -187,7 +187,7 @@ func TestGetOrCreateBranch(t *testing.T) {
 
 		_, err := g.GetOrCreateBranch(t.Context(), repo, branch, sha)
 		if err == nil {
-			t.Fatalf("expected error, got nil")
+			t.Fatal("expected error, got nil")
 		}
 	})
 

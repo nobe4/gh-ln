@@ -75,7 +75,8 @@ func (c *Config) Populate(ctx context.Context, g github.Getter) error {
 	defer log.GroupEnd()
 
 	for i, l := range c.Links {
-		if err := l.populate(ctx, g); err != nil {
+		err := l.populate(ctx, g)
+		if err != nil {
 			return fmt.Errorf("failed to populate link %#v: %w", l, err)
 		}
 

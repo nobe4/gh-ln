@@ -58,7 +58,8 @@ func TestAuth(t *testing.T) {
 
 		g := GitHub{}
 
-		if err := g.Auth(t.Context(), token, "", "", ""); err != nil {
+		err := g.Auth(t.Context(), token, "", "", "")
+		if err != nil {
 			t.Fatalf("expected no error, got %q", err)
 		}
 

@@ -207,7 +207,8 @@ func TestPopulate(t *testing.T) {
 
 		l := &Link{}
 
-		if err := l.populate(t.Context(), f); !errors.Is(err, errGettingRepo) {
+		err := l.populate(t.Context(), f)
+		if !errors.Is(err, errGettingRepo) {
 			t.Fatalf("expected error %v, got %v", errGettingRepo, err)
 		}
 	})
@@ -229,7 +230,8 @@ func TestPopulate(t *testing.T) {
 			From: github.File{Path: "from", Ref: "main"},
 		}
 
-		if err := l.populate(t.Context(), f); !errors.Is(err, errMissingTo) {
+		err := l.populate(t.Context(), f)
+		if !errors.Is(err, errMissingTo) {
 			t.Fatalf("expected error %v, got %v", errMissingTo, err)
 		}
 	})
@@ -254,7 +256,8 @@ func TestPopulate(t *testing.T) {
 			To:   github.File{Path: "to"},
 		}
 
-		if err := l.populate(t.Context(), f); err != nil {
+		err := l.populate(t.Context(), f)
+		if err != nil {
 			t.Fatalf("expected no error, got %v", err)
 		}
 
@@ -279,7 +282,8 @@ func TestPopulate(t *testing.T) {
 			To:   github.File{Path: "to"},
 		}
 
-		if err := l.populate(t.Context(), f); err != nil {
+		err := l.populate(t.Context(), f)
+		if err != nil {
 			t.Fatalf("expected no error, got %v", err)
 		}
 
@@ -307,7 +311,8 @@ func TestPopulateFrom(t *testing.T) {
 
 		l := &Link{}
 
-		if err := l.populateFrom(t.Context(), f); !errors.Is(err, errGettingRepo) {
+		err := l.populateFrom(t.Context(), f)
+		if !errors.Is(err, errGettingRepo) {
 			t.Fatalf("expected error %v, got %v", errGettingRepo, err)
 		}
 	})
@@ -326,7 +331,8 @@ func TestPopulateFrom(t *testing.T) {
 
 		l := &Link{}
 
-		if err := l.populateFrom(t.Context(), f); !errors.Is(err, errMissingFrom) {
+		err := l.populateFrom(t.Context(), f)
+		if !errors.Is(err, errMissingFrom) {
 			t.Fatalf("expected error %v, got %v", errMissingFrom, err)
 		}
 	})
@@ -349,7 +355,8 @@ func TestPopulateFrom(t *testing.T) {
 
 		l := &Link{}
 
-		if err := l.populateFrom(t.Context(), f); err != nil {
+		err := l.populateFrom(t.Context(), f)
+		if err != nil {
 			t.Fatalf("expected no error got %v", err)
 		}
 
@@ -372,7 +379,7 @@ func TestPopulateFrom(t *testing.T) {
 				return nil
 			},
 			RepoHandler: func(_ *github.Repo) error {
-				t.Fatalf("RepoHandler should not be called in this test")
+				t.Fatal("RepoHandler should not be called in this test")
 
 				return nil
 			},
@@ -382,7 +389,8 @@ func TestPopulateFrom(t *testing.T) {
 			From: github.File{Ref: "main"},
 		}
 
-		if err := l.populateFrom(t.Context(), f); err != nil {
+		err := l.populateFrom(t.Context(), f)
+		if err != nil {
 			t.Fatalf("expected no error got %v", err)
 		}
 
@@ -408,7 +416,8 @@ func TestPopulateTo(t *testing.T) {
 
 		l := &Link{}
 
-		if err := l.populateTo(t.Context(), f); !errors.Is(err, errMissingTo) {
+		err := l.populateTo(t.Context(), f)
+		if !errors.Is(err, errMissingTo) {
 			t.Fatalf("expected error %v, got %v", errMissingTo, err)
 		}
 	})
@@ -426,7 +435,8 @@ func TestPopulateTo(t *testing.T) {
 
 		l := &Link{}
 
-		if err := l.populateTo(t.Context(), f); err != nil {
+		err := l.populateTo(t.Context(), f)
+		if err != nil {
 			t.Fatalf("expected no error, got %v", err)
 		}
 
@@ -453,7 +463,8 @@ func TestPopulateTo(t *testing.T) {
 
 		l := &Link{}
 
-		if err := l.populateTo(t.Context(), f); !errors.Is(err, errMissingTo) {
+		err := l.populateTo(t.Context(), f)
+		if !errors.Is(err, errMissingTo) {
 			t.Fatalf("expected error %v, got %v", errMissingTo, err)
 		}
 	})
@@ -478,7 +489,8 @@ func TestPopulateTo(t *testing.T) {
 
 		l := &Link{}
 
-		if err := l.populateTo(t.Context(), f); err != nil {
+		err := l.populateTo(t.Context(), f)
+		if err != nil {
 			t.Fatalf("expected no error, got %v", err)
 		}
 
@@ -498,7 +510,8 @@ func TestPopulateTo(t *testing.T) {
 
 		l := &Link{}
 
-		if err := l.populateTo(t.Context(), f); err != nil {
+		err := l.populateTo(t.Context(), f)
+		if err != nil {
 			t.Fatalf("expected no error, got %v", err)
 		}
 
@@ -553,7 +566,8 @@ func TestLinkUpdate(t *testing.T) {
 			From: github.File{Content: "from"},
 		}
 
-		if err := l.Update(t.Context(), g, fmock.New(), head); err != nil {
+		err := l.Update(t.Context(), g, fmock.New(), head)
+		if err != nil {
 			t.Fatalf("want no error, got %v", err)
 		}
 

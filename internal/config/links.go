@@ -109,7 +109,8 @@ func (l *Links) FillDefaults(d Defaults) {
 
 func (l *Links) ApplyTemplate(c *Config) error {
 	for _, l := range *l {
-		if err := l.applyTemplate(c); err != nil {
+		err := l.applyTemplate(c)
+		if err != nil {
 			return err
 		}
 	}

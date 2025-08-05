@@ -48,7 +48,7 @@ func TestGetPull(t *testing.T) {
 		}
 
 		if got.New {
-			t.Fatalf("expected pull to be not new, but it is")
+			t.Fatal("expected pull to be not new, but it is")
 		}
 	})
 
@@ -111,7 +111,7 @@ func TestCreatePull(t *testing.T) {
 		}
 
 		if !got.New {
-			t.Fatalf("expected pull to be new, but it is not")
+			t.Fatal("expected pull to be new, but it is not")
 		}
 	})
 }
@@ -141,7 +141,7 @@ func TestGetOrCreatePull(t *testing.T) {
 		}
 
 		if got.New {
-			t.Fatalf("expected pull to be not new, but it is")
+			t.Fatal("expected pull to be not new, but it is")
 		}
 	})
 
@@ -154,7 +154,7 @@ func TestGetOrCreatePull(t *testing.T) {
 
 		_, err := g.GetOrCreatePull(t.Context(), repo, base, head, title, body)
 		if err == nil {
-			t.Fatalf("expected error, got nil")
+			t.Fatal("expected error, got nil")
 		}
 	})
 
@@ -189,7 +189,7 @@ func TestGetOrCreatePull(t *testing.T) {
 		}
 
 		if !got.New {
-			t.Fatalf("expected pull to be new, but it is not")
+			t.Fatal("expected pull to be new, but it is not")
 		}
 	})
 }

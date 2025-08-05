@@ -45,7 +45,8 @@ func (g *GitHub) GetRepo(ctx context.Context, r *Repo) error {
 func (g *GitHub) GetDefaultBranchName(ctx context.Context, r Repo) (string, error) {
 	log.Debug("Get default branch name", "repo", r)
 
-	if err := g.GetRepo(ctx, &r); err != nil {
+	err := g.GetRepo(ctx, &r)
+	if err != nil {
 		return "", fmt.Errorf("%w: %w", errGetRepo, err)
 	}
 

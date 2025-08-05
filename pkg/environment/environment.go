@@ -10,12 +10,9 @@ package environment
 import (
 	"encoding/json"
 	"errors"
-	"fmt"
-	"os"
 	"strings"
 
 	"github.com/nobe4/gh-ln/pkg/github"
-	"github.com/nobe4/gh-ln/pkg/log"
 )
 
 var (
@@ -26,12 +23,12 @@ var (
 )
 
 const (
-	defaultEndpoint = "https://api.github.com"
-	defaultServer   = "https://github.com"
-	defaultConfig   = ".ln-config.yaml"
-	defaultRunID    = ""
-	redacted        = "[redacted]"
-	missing         = "[missing]"
+	DefaultEndpoint = "https://api.github.com"
+	DefaultServer   = "https://github.com"
+	DefaultConfig   = ".ln-config.yaml"
+	DefaultRunID    = ""
+	Redacted        = "[redacted]"
+	Missing         = "[missing]"
 )
 
 type App struct {
@@ -41,18 +38,18 @@ type App struct {
 }
 
 type Environment struct {
-	Noop        bool        `json:"noop"`     // INPUT_NOOP
-	Token       string      `json:"token"`    // GITHUB_TOKEN / INPUT_TOKEN
-	Repo        github.Repo `json:"repo"`     // GITHUB_REPOSITORY
-	Server      string      `json:"server"`   // GITHUB_SERVER_URL
-	Endpoint    string      `json:"endpoint"` // GITHUB_API_URL
-	RunID       string      `json:"run_id"`   // GITHUB_RUN_ID
-	Config      string      `json:"config"`   // INPUT_CONFIG
-	App         App         `json:"app"`
+	Noop        bool        `json:"noop"`         // INPUT_NOOP
+	Token       string      `json:"token"`        // GITHUB_TOKEN / INPUT_TOKEN
+	App         App         `json:"app"`          // For Github-App authentication
+	Repo        github.Repo `json:"repo"`         // GITHUB_REPOSITORY
+	Server      string      `json:"server"`       // GITHUB_SERVER_URL
+	Endpoint    string      `json:"endpoint"`     // GITHUB_API_URL
+	RunID       string      `json:"run_id"`       // GITHUB_RUN_ID
+	Config      string      `json:"config"`       // INPUT_CONFIG
+	LocalConfig string      `json:"local_config"` // Read config from the filesystem.
 	OnAction    bool        `json:"on_action"`
 	ExecURL     string      `json:"exec_url"`
-	Debug       bool        `json:"debug"`        // RUNNER_DEBUG
-	LocalConfig string      `json:"local_config"` // Read config from the filesystem.
+	Debug       bool        `json:"debug"` // RUNNER_DEBUG
 }
 
 //nolint:revive // No, I don't want to leak secrets.
@@ -70,71 +67,16 @@ func (e Environment) String() string {
 	return string(out)
 }
 
-func (e Environment) PrintDebug() {
-	log.Info("Environment", "parsed", e)
-
-	log.Group("Environment keys")
-	defer log.GroupEnd()
-
-	for _, env := range os.Environ() {
-		parts := strings.Split(env, "=")
-		log.Debug(parts[0])
-	}
-}
-
-func Parse() (Environment, error) {
-	e := Environment{}
-
-	var err error
-
-	if e.Token, err = parseToken(); err != nil {
-		return e, fmt.Errorf("%w: %w", ErrInvalidEnvironment, err)
-	}
-
-	if e.Repo, err = parseRepo(); err != nil {
-		return e, fmt.Errorf("%w: %w", ErrInvalidEnvironment, err)
-	}
-
-	e.Noop = parseNoop()
-	e.Endpoint = parseEndpoint()
-	e.Server = parseServer()
-	e.RunID = parseRunID()
-	e.Config = parseConfig()
-	e.App = parseApp()
-	e.OnAction = parseOnAction()
-	e.Debug = parseDebug()
-	e.LocalConfig = parseLocalConfig()
-
-	e.ExecURL = fmt.Sprintf("%s/%s/actions/runs/%s", e.Server, e.Repo, e.RunID)
-
-	return e, nil
-}
-
-func parseNoop() bool {
-	return truthy(os.Getenv("INPUT_NOOP"))
-}
-
-func parseToken() (string, error) {
-	if token := os.Getenv("INPUT_TOKEN"); token != "" {
-		return token, nil
-	}
-
-	if token := os.Getenv("GITHUB_TOKEN"); token != "" {
-		return token, nil
-	}
-
-	return "", ErrNoToken
-}
-
-func parseRepo() (github.Repo, error) {
+// TODO: this should be in github.Repo.Parse.
+func ParseRepo(repoName string) (github.Repo, error) {
 	repo := github.Repo{}
-	repoName := os.Getenv("GITHUB_REPOSITORY")
 
 	if repoName == "" {
 		return repo, ErrNoRepo
 	}
 
 	var found bool
+
 	repo.Owner.Login, repo.Repo, found = strings.Cut(repoName, "/")
 
 	if !found {
@@ -144,71 +86,10 @@ func parseRepo() (github.Repo, error) {
 	return repo, nil
 }
 
-func parseEndpoint() string {
-	if endpoint := os.Getenv("GITHUB_API_URL"); endpoint != "" {
-		return endpoint
-	}
-
-	return defaultEndpoint
-}
-
-func parseServer() string {
-	if server := os.Getenv("GITHUB_SERVER_URL"); server != "" {
-		return server
-	}
-
-	return defaultServer
-}
-
-func parseRunID() string {
-	if runID := os.Getenv("GITHUB_RUN_ID"); runID != "" {
-		return runID
-	}
-
-	return defaultRunID
-}
-
-func parseConfig() string {
-	if config := os.Getenv("INPUT_CONFIG"); config != "" {
-		return config
-	}
-
-	return defaultConfig
-}
-
-func parseApp() App {
-	return App{
-		ID:         os.Getenv("INPUT_APP_ID"),
-		PrivateKey: os.Getenv("INPUT_APP_PRIVATE_KEY"),
-		InstallID:  os.Getenv("INPUT_APP_INSTALL_ID"),
-	}
-}
-
-func parseOnAction() bool {
-	return os.Getenv("GITHUB_RUN_ID") != ""
-}
-
-func parseDebug() bool {
-	return truthy(os.Getenv("RUNNER_DEBUG"))
-}
-
-func parseLocalConfig() string {
-	return os.Getenv("INPUT_LOCAL_CONFIG")
-}
-
-func truthy(s string) bool {
-	switch strings.ToLower(s) {
-	case "1", "true", "yes":
-		return true
-	}
-
-	return false
-}
-
 func missingOrRedacted(s string) string {
 	if s == "" {
-		return missing
+		return Missing
 	}
 
-	return redacted
+	return Redacted
 }
