@@ -67,7 +67,7 @@ func (e Environment) String() string {
 	return string(out)
 }
 
-// TODO: this should be in github.Repo.Parse
+// TODO: this should be in github.Repo.Parse.
 func ParseRepo(repoName string) (github.Repo, error) {
 	repo := github.Repo{}
 
@@ -76,6 +76,7 @@ func ParseRepo(repoName string) (github.Repo, error) {
 	}
 
 	var found bool
+
 	repo.Owner.Login, repo.Repo, found = strings.Cut(repoName, "/")
 
 	if !found {

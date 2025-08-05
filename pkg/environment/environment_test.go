@@ -44,10 +44,10 @@ func TestMissingOrRedacted(t *testing.T) {
 	t.Parallel()
 
 	if missingOrRedacted("token") != Redacted {
-		t.Fatalf("want redacted but got something else")
+		t.Fatal("want redacted but got something else")
 	}
 
 	if missingOrRedacted("") != Missing {
-		t.Fatalf("want missingd but got something else")
+		t.Fatal("want missingd but got something else")
 	}
 }

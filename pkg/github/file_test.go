@@ -27,7 +27,9 @@ func TestGetFile(t *testing.T) {
 		})
 
 		f := File{Repo: repo, Path: filePath}
-		if err := g.GetFile(t.Context(), &f); !errors.Is(err, ErrMissingFile) {
+
+		err := g.GetFile(t.Context(), &f)
+		if !errors.Is(err, ErrMissingFile) {
 			t.Fatalf("expected missing file error, got %v", err)
 		}
 	})
@@ -40,7 +42,9 @@ func TestGetFile(t *testing.T) {
 		})
 
 		f := File{Repo: repo, Path: filePath}
-		if err := g.GetFile(t.Context(), &f); !errors.Is(err, base64.CorruptInputError(0)) {
+
+		err := g.GetFile(t.Context(), &f)
+		if !errors.Is(err, base64.CorruptInputError(0)) {
 			t.Fatalf("expected base64 error, got %v", err)
 		}
 	})
@@ -60,7 +64,9 @@ func TestGetFile(t *testing.T) {
 		})
 
 		f := File{Repo: repo, Path: filePath, Ref: branch}
-		if err := g.GetFile(t.Context(), &f); err != nil {
+
+		err := g.GetFile(t.Context(), &f)
+		if err != nil {
 			t.Fatalf("expected no error, got %v", err)
 		}
 

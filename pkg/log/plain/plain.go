@@ -41,7 +41,7 @@ func (h *Handler) Enabled(_ context.Context, l slog.Level) bool {
 }
 
 func (h *Handler) Handle(_ context.Context, r slog.Record) error {
-	level := ""
+	var level string
 
 	switch r.Level {
 	case log.LevelDebug:
@@ -61,6 +61,8 @@ func (h *Handler) Handle(_ context.Context, r slog.Record) error {
 		h.indent = 0
 		level = "[/G]"
 		r.Message = "\n"
+	default:
+		level = "[I]"
 	}
 
 	buf := make([]byte, 0, buflen)

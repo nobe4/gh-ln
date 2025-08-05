@@ -56,6 +56,7 @@ func (g *GitHub) GetAppToken(ctx context.Context, install string, jwtToken strin
 	path := fmt.Sprintf("/app/installations/%s/access_tokens", install)
 
 	token := g.Token
+
 	defer func() { g.Token = token }()
 
 	g.Token = jwtToken

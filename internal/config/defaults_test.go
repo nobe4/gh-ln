@@ -17,7 +17,8 @@ func TestParseDefault(t *testing.T) {
 		c := New(github.File{}, repo)
 		raw := RawDefaults{}
 
-		if err := c.parseDefaults(raw); err != nil {
+		err := c.parseDefaults(raw)
+		if err != nil {
 			t.Fatalf("expected no error, got %v", err)
 		}
 
@@ -48,7 +49,8 @@ func TestParseDefault(t *testing.T) {
 			},
 		}
 
-		if err := c.parseDefaults(raw); err != nil {
+		err := c.parseDefaults(raw)
+		if err != nil {
 			t.Fatalf("expected no error, got %v", err)
 		}
 
@@ -82,7 +84,8 @@ func TestParseDefault(t *testing.T) {
 			},
 		}
 
-		if err := c.parseDefaults(raw); err != nil {
+		err := c.parseDefaults(raw)
+		if err != nil {
 			t.Fatalf("expected no error, got %v", err)
 		}
 

@@ -33,7 +33,8 @@ This automated PR updates the following files:
 
 func processGroups(ctx context.Context, g *github.GitHub, f format.Formatter, groups config.Groups) error {
 	for _, l := range groups {
-		if err := processLinks(ctx, g, f, l); err != nil {
+		err := processLinks(ctx, g, f, l)
+		if err != nil {
 			return err
 		}
 	}
@@ -58,7 +59,8 @@ func processLinks(ctx context.Context, g *github.GitHub, f format.Formatter, l c
 	if !updated && head.New {
 		log.Info("No link was updated, cleaning up.", "repo", toRepo, "branch", head.Name)
 
-		if err = g.DeleteBranch(ctx, toRepo, head.Name); err != nil {
+		err = g.DeleteBranch(ctx, toRepo, head.Name)
+		if err != nil {
 			return fmt.Errorf("failed to delete non-updated branch: %w", err)
 		}
 

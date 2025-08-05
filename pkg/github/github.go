@@ -87,7 +87,8 @@ func (g *GitHub) req(ctx context.Context, method, path string, body io.Reader, o
 	}
 
 	if out != nil {
-		if err := json.NewDecoder(res.Body).Decode(out); err != nil {
+		err := json.NewDecoder(res.Body).Decode(out)
+		if err != nil {
 			return http.StatusInternalServerError, fmt.Errorf("failed to decode response: %w", err)
 		}
 	}

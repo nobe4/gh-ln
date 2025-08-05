@@ -58,6 +58,7 @@ func (h *Handler) Handle(_ context.Context, r slog.Record) error {
 		command = "::group::"
 	case log.LevelGroupEnd:
 		command = "::groupend::"
+	default:
 	}
 
 	// This is not ideal, but will work for now.
