@@ -16,6 +16,7 @@ linters:
     - varnamelen # short variable names are okay
     - funlen # using revive's function-length
     - noinlineerr # inline errors are sometimes ok
+    - wsl # deprecated
 
   settings:
 
