@@ -25,11 +25,9 @@ func main() {
 		os.Exit(1)
 	}
 
-	log.Info("Environment", "parsed", e)
-
 	setLogger(e.Debug, e.OnAction)
 
-	e.PrintDebug()
+	log.Info("Environment", "parsed", e)
 
 	var c client.Doer = &http.Client{}
 	if e.Noop {
