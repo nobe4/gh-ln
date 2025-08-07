@@ -4,10 +4,8 @@ Package log provides a simple logging interface.
 It sets up the levels and adds handy wrappers that will work with any handlers.
 
 Refs:
-- https://docs.github.com/en/actions/writing-workflows/choosing-what-your-workflow-does/workflow-commands-for-github-actions
 - https://pkg.go.dev/log/slog#pkg-constants
 - https://github.com/golang/example/blob/master/slog-handler-guide/README.md
-- https://github.com/actions/toolkit/blob/253e837c4db937cac18949bc65f0ffdd87496033/packages/core/src/command.ts
 */
 package log
 
