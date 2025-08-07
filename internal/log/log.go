@@ -1,8 +1,8 @@
 /*
-Package plain implements a plain handler, similar to the default one, but that
-also handles the custom levels sets in ../log.go
+Package log implements a plain handler, similar to the default one, but that
+also handles the custom levels sets in github.com/nobe4/gh-ln/pkg/log.
 */
-package plain
+package log
 
 import (
 	"context"

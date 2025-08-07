@@ -7,13 +7,12 @@ import (
 	"os"
 
 	"github.com/nobe4/gh-ln/internal/flags"
+	handler "github.com/nobe4/gh-ln/internal/log"
 	"github.com/nobe4/gh-ln/pkg/client"
 	"github.com/nobe4/gh-ln/pkg/client/noop"
 	"github.com/nobe4/gh-ln/pkg/github"
 	"github.com/nobe4/gh-ln/pkg/ln"
 	"github.com/nobe4/gh-ln/pkg/log"
-	glog "github.com/nobe4/gh-ln/pkg/log/github"
-	"github.com/nobe4/gh-ln/pkg/log/plain"
 )
 
 func main() {
@@ -25,7 +24,12 @@ func main() {
 		os.Exit(1)
 	}
 
-	setLogger(e.Debug, e.OnAction)
+	o := log.Options{Level: slog.LevelInfo}
+	if e.Debug {
+		o.Level = slog.LevelDebug
+	}
+
+	slog.SetDefault(slog.New(handler.New(os.Stdout, o)))
 
 	log.Info("Environment", "parsed", e)
 
@@ -50,21 +54,4 @@ func main() {
 		log.Error("Running gh-ln failed", "err", err)
 		os.Exit(1)
 	}
-}
-
-//nolint:revive // debug here is expected.
-func setLogger(debug, onAction bool) {
-	o := log.Options{Level: slog.LevelInfo}
-	if debug {
-		o.Level = slog.LevelDebug
-	}
-
-	var h slog.Handler
-	if onAction {
-		h = glog.New(os.Stdout, o)
-	} else {
-		h = plain.New(os.Stdout, o)
-	}
-
-	slog.SetDefault(slog.New(h))
 }
