@@ -13,6 +13,7 @@ links:
   # This is configured in internal/config/config_test.go
   # want: fo/fr:.ln-config.yaml@ -> to/tr:.ln-config.yaml@
   - from: "{{ .Config.Source.Path }}"
+    to: "{{ .Config.Source.Path }}"
 
   # want: owner/current_repo:fp@ -> to/tr:tp@
   - from:

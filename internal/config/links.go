@@ -72,21 +72,43 @@ func (c *Config) parseLink(raw RawLink) (Links, error) {
 
 func combineLinks(froms, tos []github.File) Links {
 	if len(froms) == 0 {
-		log.Warn("Found no `from`, make sure you reference one.")
-
-		return Links{}
+		return combineLinksNoFrom(tos)
 	}
 
-	useFrom := len(tos) == 0
+	if len(tos) == 0 {
+		return combineLinksNoTos(froms)
+	}
 
+	return combineLinksAll(froms, tos)
+}
+
+func combineLinksNoFrom(tos []github.File) Links {
+	links := Links{}
+
+	for _, to := range tos {
+		links = append(links, &Link{From: github.File{}, To: to})
+	}
+
+	return links
+}
+
+func combineLinksNoTos(froms []github.File) Links {
 	links := Links{}
 
 	for _, from := range froms {
-		if useFrom {
-			// TODO: inherit the `ref` as well?
-			tos = []github.File{{Path: from.Path}}
-		}
+		links = append(links, &Link{
+			From: from,
+			To:   github.File{},
+		})
+	}
 
+	return links
+}
+
+func combineLinksAll(froms, tos []github.File) Links {
+	links := Links{}
+
+	for _, from := range froms {
 		for _, to := range tos {
 			links = append(links, &Link{From: from, To: to})
 		}

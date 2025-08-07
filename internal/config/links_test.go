@@ -36,7 +36,10 @@ func TestCombineLinks(t *testing.T) {
 				mkFile("0"),
 				mkFile("1"),
 			},
-			want: Links{},
+			want: Links{
+				mkLink("", "0"),
+				mkLink("", "1"),
+			},
 		},
 
 		{
@@ -46,8 +49,8 @@ func TestCombineLinks(t *testing.T) {
 			},
 			tos: []github.File{},
 			want: Links{
-				mkLink("0", "0"),
-				mkLink("1", "1"),
+				mkLink("0", ""),
+				mkLink("1", ""),
 			},
 		},
 
