@@ -16,7 +16,7 @@ jobs:
       contents: write
       pull-requests: write
     steps:
-      - uses: nobe4/action-ln@v0.20.0
+      - uses: nobe4/action-ln@v0.2.0
         with:
           app_id: ${{ secrets.ACTION_LN_APP_ID }}
           app_private_key: ${{ secrets.ACTION_LN_APP_PRIVATE_KEY }}
